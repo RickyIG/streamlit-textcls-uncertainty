@@ -50,7 +50,13 @@ def plot_confidence(df, time_frame, threshold=0.6):
         df_resample = df['confidence'].resample('A').mean()
 
     plt.figure(figsize=(10, 4)) #menyesuaikan shape dari plot figure
-    plt.plot(df_resample.index, df_resample, marker='o', linestyle='-') #melakukan plot pada data dari hasil resample
+
+    # modif agar tidak error 
+    # ValueError: Multi-dimensional indexing (e.g. `obj[:, None]`) is no longer supported. Convert to a numpy array before indexing instead.
+    index_array = df_resample.index.to_numpy()
+    values_array = df_resample.to_numpy()
+
+    plt.plot(index_array, values_array, marker='o', linestyle='-') #melakukan plot pada data dari hasil resample
     plt.title(f'Mean Confidence Scores: {time_frame}') # memberikan title
     plt.ylabel('Mean Confidence') # set y label
     plt.xlabel('Time') # set x label
@@ -75,7 +81,7 @@ with st.sidebar: #untuk menaruh keseluruhan komponen ke kiri
     # set end date dengan komponen date_input
     end_date = st.date_input("End Date")
     # set filter prediction type dengan selectbox
-    prediction = st.selectbox("Prediction Type", ["All", "Positive", "Negative"]).lower()
+    prediction = st.selectbox("Prediction Type", ["All", "Politics", "Sport", "Tech", "Entertainment", "Business"]).lower()
     time_frame = st.selectbox("Aggregate Time Frame", ["Hourly", "Daily", "Monthly", "Yearly"])
 
 if not data.empty:
