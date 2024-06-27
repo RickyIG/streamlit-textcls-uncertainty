@@ -86,7 +86,7 @@ with st.sidebar: #untuk menaruh keseluruhan komponen ke kiri
 
 if not data.empty:
     data_filtered = filter_data(data, start_date, end_date, prediction)
-    st.write(data_filtered)
+    st.table(data_filtered)
     plot_confidence(data_filtered, time_frame, threshold=threshold)
 else:
     st.write("No data available.")
