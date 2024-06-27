@@ -33,7 +33,7 @@ def filter_data(df, start_date, end_date, prediction):
         filtered = filtered[filtered['prediction'] == prediction]
     return filtered
 
-def plot_confidence(df, time_frame, threshold=0.6):
+def plot_confidence(df, time_frame, threshold=0.5):
     #jika data kosong maka akan ada tulisan no data to plot
     if df.empty:
         st.write("No data to plot.")
